@@ -13,7 +13,6 @@ body {
 
 h1 {
     font-size: 4rem;
-    text-shadow: rgba(170, 166, 166, 0.918) 0px 2px 4px 0px inset;
 }
 
 #container {
@@ -49,8 +48,8 @@ h1 {
 }
 
 #screen {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: ;
     height: 480px;
     width: 464px;
     padding: 0;
@@ -59,6 +58,7 @@ h1 {
     background-color: rgb(243, 243, 234);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset, rgba(255, 254, 254, 0.479) 0px 2px 4px 0px;
 }
+
 
 
 #footer {
@@ -90,16 +90,48 @@ h1 {
     background-color: beige;
     font-size: small;
     color: rgb(93, 93, 93);
-    text-shadow: rgba(170, 166, 166, 0.918) 0px 2px 4px 0px inset;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     cursor: pointer;
+    transition: 0.05s;
 }
 
 .control:hover {
     transform: scale(1.05);
 }
 
+#gridSizes {
+    position: relative;
+    display: inline-block;
+}
 
+#size {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    border-radius: 0 0 16px 16px;
+    padding: 8px;
+}
+
+#size a {
+    display: block;
+    width: 64px;
+    margin: 8px 0;
+}
+
+a:hover {
+    transform: scale(1.2);
+}
+
+#gridSizes:hover {
+    border-radius: 16px 16px 0 0;
+    box-shadow: none;
+}
+
+#gridSizes:hover #size {
+    display: block;
+    background-color: beige;
+    text-align: center;
+}
 
 .wheels {
     display: flex;
