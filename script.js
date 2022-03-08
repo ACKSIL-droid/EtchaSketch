@@ -71,6 +71,10 @@ function changeColor(e) {
     }
 }
 
+
+
+
+
 modes.forEach((option) => {
     option.addEventListener('click', () => {
         mode = `${option.id}`;
@@ -100,6 +104,9 @@ wheels.forEach((wheel) => {
         wheel.style.transform = `rotate(${angle}deg)`;
         })
 });
+
+
+
 
 
 window.onload = () => {
