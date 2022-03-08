@@ -15,16 +15,13 @@ const modes = document.querySelectorAll('.modes');
 const clearButton = document.getElementById('clear');
 const wheels = document.querySelectorAll('.wheels');
 
-
 let mouseDown = false;
 document.body.onmousedown = () => mouseDown = true;
 document.body.onmouseup = () => mouseDown = false;
 
 
-clearButton.addEventListener('click', () => {
-    clearScreen();
-    populateScreen(gridSize);
-})
+
+
 
 function clearScreen() {
     while (screen.lastElementChild) {
@@ -46,12 +43,6 @@ function preventDrag () {
     });
 }
 
-function changeColor(e) {
-    if (mouseDown) {
-    e.target.style.backgroundColor = 'rgb(93, 93, 93)';
-    }
-}
-
 function populateScreen(gridSize) {
     clearScreen();
     setPixelSize();
@@ -59,24 +50,43 @@ function populateScreen(gridSize) {
     for (let i = 0; i < gridSize * gridSize; i++) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
-        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px; draggable: false`)
+        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
         pixel.addEventListener('mouseover', changeColor);
         screen.appendChild(pixel);
     }
 }
 
+function changeColor(e) {
+    if (!mouseDown) {
+        return;
+    }
+    else if (mode == 'monochrome') {
+        e.target.style.backgroundColor = 'rgb(93, 93, 93)';
+    }
+    else if (mode == 'rainbow') {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+}
+
+modes.forEach((option) => {
+    option.addEventListener('click', () => {
+        mode = `${option.id}`;
+    });
+});
+
+clearButton.addEventListener('click', () => {
+    clearScreen();
+    populateScreen(gridSize);
+})
 
 sizeOptions.forEach((size) => {
     size.addEventListener('click', () => {
         gridSize = size.id;
         populateScreen(gridSize);
     })
-});
-
-modes.forEach((option) => {
-    option.addEventListener('click', () => {
-        mode = `${option.id}`;
-    });
 });
 
 wheels.forEach((wheel) => {
