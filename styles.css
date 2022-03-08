@@ -7,7 +7,8 @@
 body {
     background-color: rgb(93, 93, 93);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-content: center;
 
 }
 
@@ -26,7 +27,7 @@ div input {
 }
 
 #container {
-    height: 100vh;
+    height: 97vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,4 +165,17 @@ div input {
     background-color: rgb(93, 93, 93);
     border-radius: 30%;
     box-shadow: rgba(170, 166, 166, 0.918) 0px 2px 4px 0px inset;
+}
+
+#bottombar {
+    text-align: center;
+}
+
+#gitLink {
+    text-decoration: none;
+    color: beige;
+}
+
+#gitLink:hover {
+    text-decoration: underline;
 }

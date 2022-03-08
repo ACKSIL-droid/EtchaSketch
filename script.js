@@ -1,5 +1,5 @@
 const screen = document.getElementById('screen');
-const sizeOptions = document.querySelectorAll('a');
+const sizeOptions = document.querySelectorAll('.sizeClass');
 let gridSize = 64;
 let mode = 'monochrome';
 
@@ -59,7 +59,7 @@ function populateScreen(gridSize) {
     for (let i = 0; i < gridSize * gridSize; i++) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
-        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
+        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px; cursor: crosshair`)
         pixel.addEventListener('mouseover', changeColorDrag);
         pixel.addEventListener('click', changeColorClick);
         screen.appendChild(pixel);
