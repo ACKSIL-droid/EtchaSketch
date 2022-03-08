@@ -12,7 +12,14 @@ let pixelWidth = '';
 let pixelHeight = '';
 
 const modes = document.querySelectorAll('.modes');
+const clearButton = document.getElementById('clear');
 const wheels = document.querySelectorAll('.wheels');
+
+
+clearButton.addEventListener('click', () => {
+    clearScreen();
+    populateScreen(gridSize);
+})
 
 
 wheels.forEach((wheel) => {
@@ -27,6 +34,7 @@ wheels.forEach((wheel) => {
         })
 });
 
+
 function setPixelSize() {
     pixelWidth = screenWidth/gridSize;
     pixelHeight = screenHeight/gridSize;
@@ -38,6 +46,11 @@ function clearScreen() {
     }
 }
 
+function changeColor(e) {
+    e.target.style.backgroundColor = 'black';
+}
+
+
 function populateScreen(gridSize) {
     clearScreen();
     setPixelSize();
@@ -45,17 +58,13 @@ function populateScreen(gridSize) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
         pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
-        pixel.addEventListener('click', changeColor(mode));
+        pixel.addEventListener('click', changeColor);
         screen.appendChild(pixel);
     }
 }
 
 
-function changeColor(mode) {
 
-    
-
-}
 
 
 sizeOptions.forEach((size) => {
