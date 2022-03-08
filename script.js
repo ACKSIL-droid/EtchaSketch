@@ -1,4 +1,19 @@
+const screen = document.getElementById('screen');
+const sizeOptions = document.querySelectorAll('a');
+let gridSize = 16;
+let mode = 'monochrome';
+
+const screenDimensions = screen.getBoundingClientRect();
+let screenWidth = screenDimensions.width;
+let screenHeight = screenDimensions.height;
+
+let pixels = document.querySelectorAll('.pixel');
+let pixelWidth = '';
+let pixelHeight = '';
+
+const modes = document.querySelectorAll('.modes');
 const wheels = document.querySelectorAll('.wheels');
+
 
 wheels.forEach((wheel) => {
     let wheelBounds = wheel.getBoundingClientRect();
@@ -12,20 +27,6 @@ wheels.forEach((wheel) => {
         })
 });
 
-
-const screen = document.getElementById('screen');
-const sizeOptions = document.querySelectorAll('a');
-let gridSize = 16;
-
-const screenDimensions = screen.getBoundingClientRect();
-let screenWidth = screenDimensions.width;
-let screenHeight = screenDimensions.height;
-
-pixels = document.querySelectorAll('.pixel');
-let pixelWidth = '';
-let pixelHeight = '';
-
-
 function setPixelSize() {
     pixelWidth = screenWidth/gridSize;
     pixelHeight = screenHeight/gridSize;
@@ -37,23 +38,37 @@ function clearScreen() {
     }
 }
 
-function populateScreen(gridSize, pixels) {
+function populateScreen(gridSize) {
     clearScreen();
     setPixelSize();
     for (let i = 0; i < gridSize * gridSize; i++) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
         pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
+        pixel.addEventListener('click', changeColor(mode));
         screen.appendChild(pixel);
-        //add listener here (onclick, changecolor function)
     }
 }
+
+
+function changeColor(mode) {
+
+    
+
+}
+
 
 sizeOptions.forEach((size) => {
     size.addEventListener('click', () => {
         gridSize = size.id;
         populateScreen(gridSize);
     })
+});
+
+modes.forEach((option) => {
+    option.addEventListener('click', () => {
+        mode = `${option.id}`;
+    });
 });
 
 

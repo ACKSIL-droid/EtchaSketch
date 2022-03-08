@@ -78,7 +78,7 @@ h1 {
     height: 80px;
 }
 
-.control {
+.controls {
     margin: 3px;
     text-align: center;
     padding: 8px 0;
@@ -93,7 +93,7 @@ h1 {
     transition: 0.05s;
 }
 
-.control:hover {
+.controls:hover {
     transform: scale(1.05);
 }
 
