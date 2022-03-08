@@ -1,6 +1,6 @@
 const screen = document.getElementById('screen');
 const sizeOptions = document.querySelectorAll('a');
-let gridSize = 16;
+let gridSize = 64;
 let mode = 'monochrome';
 
 const screenDimensions = screen.getBoundingClientRect();
@@ -16,24 +16,15 @@ const clearButton = document.getElementById('clear');
 const wheels = document.querySelectorAll('.wheels');
 
 
+let mouseDown = false;
+screen.onmousedown = () => mouseDown = true;
+screen.onmouseup = () => mouseDown = false;
+
+
 clearButton.addEventListener('click', () => {
     clearScreen();
     populateScreen(gridSize);
 })
-
-
-wheels.forEach((wheel) => {
-    let wheelBounds = wheel.getBoundingClientRect();
-    let wheelCenter = {
-        x: wheelBounds.left + wheelBounds.width/2,
-        y: wheelBounds.top + wheelBounds.height/2
-    };
-    document.addEventListener('mousemove', e => {
-        let angle = Math.atan2(e.pageX - wheelCenter.x, - (e.pageY - wheelCenter.y)) * (180 / Math.PI);
-        wheel.style.transform = `rotate(${angle}deg)`;
-        })
-});
-
 
 function setPixelSize() {
     pixelWidth = screenWidth/gridSize;
@@ -47,9 +38,10 @@ function clearScreen() {
 }
 
 function changeColor(e) {
-    e.target.style.backgroundColor = 'black';
+    if (mouseDown) {
+    e.target.style.backgroundColor = 'rgb(93, 93, 93)';
+    }
 }
-
 
 function populateScreen(gridSize) {
     clearScreen();
@@ -58,13 +50,10 @@ function populateScreen(gridSize) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
         pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
-        pixel.addEventListener('click', changeColor);
+        pixel.addEventListener('mouseover', changeColor);
         screen.appendChild(pixel);
     }
 }
-
-
-
 
 
 sizeOptions.forEach((size) => {
@@ -78,6 +67,18 @@ modes.forEach((option) => {
     option.addEventListener('click', () => {
         mode = `${option.id}`;
     });
+});
+
+wheels.forEach((wheel) => {
+    let wheelBounds = wheel.getBoundingClientRect();
+    let wheelCenter = {
+        x: wheelBounds.left + wheelBounds.width/2,
+        y: wheelBounds.top + wheelBounds.height/2
+    };
+    document.addEventListener('mousemove', e => {
+        let angle = Math.atan2(e.pageX - wheelCenter.x, - (e.pageY - wheelCenter.y)) * (180 / Math.PI);
+        wheel.style.transform = `rotate(${angle}deg)`;
+        })
 });
 
 
