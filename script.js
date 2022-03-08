@@ -14,25 +14,45 @@ wheels.forEach( (wheel) => {
 
 
 const screen = document.getElementById('screen');
-const sizes = document.querySelectorAll('a');
+const sizeOptions = document.querySelectorAll('a');
 let gridSize = 16;
 
-function fillScreen (gridSize) {
-    for (let i = 0; i < gridSize**2; i++) {
-        let square = document.createElement('div');
-        square.classList.add('square');
-        screen.appendChild(square);
-    }
-    
+const screenDimensions = screen.getBoundingClientRect();
+let screenWidth = screenDimensions.width;
+let screenHeight = screenDimensions.height;
+
+let pixelWidth = '';
+let pixelHeight = '';
+
+
+function setPixelSize () {
+    pixelWidth = screenWidth/gridSize;
+    pixelHeight = screenHeight/gridSize;
 }
 
-sizes.forEach( (size) => {
+
+function populateScreen (gridSize) {
+    setPixelSize();
+    for (let i = 0; i < gridSize * gridSize; i++) {
+        let pixel = document.createElement('div');
+        pixel.classList.add('pixel');
+        screen.appendChild(pixel);
+    }
+    let pixels = document.querySelectorAll('.pixel');
+    pixels.forEach((pixel) => {
+        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`);
+    })
+}
+
+
+sizeOptions.forEach((size) => {
     size.addEventListener('click', () => {
         gridSize = size.id;
-        fillScreen(gridSize);
+        populateScreen(gridSize);
     })
 });
 
+
 window.onload = () => {
-    fillScreen(gridSize);
+    populateScreen(gridSize);
 }
