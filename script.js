@@ -17,8 +17,8 @@ const wheels = document.querySelectorAll('.wheels');
 
 
 let mouseDown = false;
-screen.onmousedown = () => mouseDown = true;
-screen.onmouseup = () => mouseDown = false;
+document.body.onmousedown = () => mouseDown = true;
+document.body.onmouseup = () => mouseDown = false;
 
 
 clearButton.addEventListener('click', () => {
@@ -26,15 +26,24 @@ clearButton.addEventListener('click', () => {
     populateScreen(gridSize);
 })
 
+function clearScreen() {
+    while (screen.lastElementChild) {
+        screen.removeChild(screen.lastElementChild);
+    }
+}
+
 function setPixelSize() {
     pixelWidth = screenWidth/gridSize;
     pixelHeight = screenHeight/gridSize;
 }
 
-function clearScreen() {
-    while (screen.lastElementChild) {
-        screen.removeChild(screen.lastElementChild);
-    }
+function preventDrag () {
+    const divs = document.querySelectorAll('div');
+    divs.forEach((div) => {
+        div.addEventListener('dragstart', (e) => {
+            e.preventDefault()
+        })
+    });
 }
 
 function changeColor(e) {
@@ -46,10 +55,11 @@ function changeColor(e) {
 function populateScreen(gridSize) {
     clearScreen();
     setPixelSize();
+    preventDrag();
     for (let i = 0; i < gridSize * gridSize; i++) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
-        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
+        pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px; draggable: false`)
         pixel.addEventListener('mouseover', changeColor);
         screen.appendChild(pixel);
     }
