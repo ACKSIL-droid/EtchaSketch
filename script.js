@@ -16,7 +16,7 @@ const modes = document.querySelectorAll('.modes');
 const colorPicker = document.getElementById('colorPicker');
 const sizeButtonLabel = document.getElementById('gridBtnLabel');
 const clearButton = document.getElementById('clear');
-const helpButton = document.getElementById('help');
+const eraser = document.getElementById('eraser');
 const wheels = document.querySelectorAll('.wheels');
 
 let mouseDown = false;
@@ -25,7 +25,6 @@ document.body.onmouseup = () => mouseDown = false;
 
 let colorChoice = '';
 colorPicker.onchange = (e) => setColorChoice(e.target.value);
-
 
 
 
@@ -61,12 +60,13 @@ function populateScreen(gridSize) {
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
         pixel.setAttribute('style',`width: ${pixelWidth}px; height: ${pixelHeight}px`)
-        pixel.addEventListener('mouseover', changeColor);
+        pixel.addEventListener('mouseover', changeColorDrag);
+        pixel.addEventListener('click', changeColorClick);
         screen.appendChild(pixel);
     }
 }
 
-function changeColor(e) {
+function changeColorDrag(e) {
     if (!mouseDown) {
         return;
     }
@@ -82,8 +82,28 @@ function changeColor(e) {
     else if (mode == 'colorSelect') {
         e.target.style.backgroundColor = `${colorChoice}`;
     }
+    else if (mode == 'eraser') {
+        e.target.style.backgroundColor = 'rgb(243, 243, 234)';
+    }
 }
 
+function changeColorClick(e) {
+    if (mode == 'monochrome') {
+        e.target.style.backgroundColor = 'rgb(93, 93, 93)';
+    }
+    else if (mode == 'rainbow') {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+    else if (mode == 'colorSelect') {
+        e.target.style.backgroundColor = `${colorChoice}`;
+    }
+    else if (mode == 'eraser') {
+        e.target.style.backgroundColor = 'rgb(243, 243, 234)';
+    }
+}
 
 
 
