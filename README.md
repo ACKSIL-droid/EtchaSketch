@@ -6,3 +6,5 @@ A slightly more elaborate (than before) implimentation of the Etch-a-Sketch assi
 Click and drag anywhere on the screen to draw in grey, or pick a color and draw with that. Hit 'Rainbow' and the machines will pick for you.  
 
 Don't mind the knobs. They are turny buttons that lie.
+
+See it [live](https://acksil-droid.github.io/EtchaSketch/).
