@@ -13,16 +13,25 @@ let pixelHeight = '';
 
 const controls = document.querySelectorAll('.controls');
 const modes = document.querySelectorAll('.modes');
+const colorPicker = document.getElementById('colorPicker');
 const sizeButtonLabel = document.getElementById('gridBtnLabel');
 const clearButton = document.getElementById('clear');
+const helpButton = document.getElementById('help');
 const wheels = document.querySelectorAll('.wheels');
 
 let mouseDown = false;
 document.body.onmousedown = () => mouseDown = true;
 document.body.onmouseup = () => mouseDown = false;
 
+let colorChoice = '';
+colorPicker.onchange = (e) => setColorChoice(e.target.value);
 
 
+
+
+function setColorChoice(color) {
+    colorChoice = color;
+}
 
 function clearScreen() {
     while (screen.lastElementChild) {
@@ -70,6 +79,9 @@ function changeColor(e) {
         let b = Math.floor(Math.random() * 256);
         e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
     }
+    else if (mode == 'colorSelect') {
+        e.target.style.backgroundColor = `${colorChoice}`;
+    }
 }
 
 
@@ -80,6 +92,7 @@ modes.forEach((option) => {
         mode = `${option.id}`;
     });
 });
+
 
 clearButton.addEventListener('click', () => {
     clearScreen();
