@@ -11,14 +11,15 @@ let pixels = document.querySelectorAll('.pixel');
 let pixelWidth = '';
 let pixelHeight = '';
 
+const controls = document.querySelectorAll('.controls');
 const modes = document.querySelectorAll('.modes');
+const sizeButtonLabel = document.getElementById('gridBtnLabel');
 const clearButton = document.getElementById('clear');
 const wheels = document.querySelectorAll('.wheels');
 
 let mouseDown = false;
 document.body.onmousedown = () => mouseDown = true;
 document.body.onmouseup = () => mouseDown = false;
-
 
 
 
@@ -74,7 +75,6 @@ function changeColor(e) {
 
 
 
-
 modes.forEach((option) => {
     option.addEventListener('click', () => {
         mode = `${option.id}`;
@@ -84,13 +84,36 @@ modes.forEach((option) => {
 clearButton.addEventListener('click', () => {
     clearScreen();
     populateScreen(gridSize);
-})
+});
+
+
+//animations
+
+controls.forEach((btn) => {
+    btn.addEventListener('mouseover', () => {
+        btn.style.transform = 'scale(1.1)';
+    });
+    btn.addEventListener('click', () => {
+        btn.style.transform = 'scale(0.9)';
+    });
+    btn.addEventListener('transitionend', () => {
+        btn.style.transform = 'scale(1)';
+    });
+});
 
 sizeOptions.forEach((size) => {
+    size.addEventListener('mouseover', () => {
+        size.style.transform = 'scale(1.1)';
+    });
     size.addEventListener('click', () => {
         gridSize = size.id;
         populateScreen(gridSize);
-    })
+        size.style.transform = 'scale(0.9)';
+        sizeButtonLabel.textContent = `${size.id} x ${size.id}`
+    });
+    size.addEventListener('transitionend', () => {
+        size.style.transform = 'scale(1)';
+    });
 });
 
 wheels.forEach((wheel) => {
@@ -104,7 +127,6 @@ wheels.forEach((wheel) => {
         wheel.style.transform = `rotate(${angle}deg)`;
         })
 });
-
 
 
 
